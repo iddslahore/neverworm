@@ -1,1 +1,5 @@
 Django==1.9.1
+dj-database-url
+dj-static
+gunicorn
+psycopg2
