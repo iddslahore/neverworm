@@ -17,20 +17,27 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Neverworm.  If not, see <http://www.gnu.org/licenses/>.
 
+import datetime
 
 from django.db import models
+from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from django.utils import timezone
 
 from users.models import Cluster, Supplier, Worker
 
 # Create your models here.
+
+def default_target_date():
+    delta_days = settings.DEADLINE_DELTA_DAYS
+    return timezone.now() + datetime.timedelta(days=delta_days)
 
 
 class Request(models.Model):
     cluster = models.ForeignKey(Cluster)
     supplier = models.ForeignKey(Supplier)
     submission_date = models.DateTimeField(auto_now_add=True, null=False)
-    target_date = models.DateField(null=True, blank=True)
+    target_date = models.DateField(default=default_target_date, null=False, blank=False)
 
 
 class RequestItem(models.Model):

@@ -30,6 +30,7 @@ logger = logging.getLogger(__name__)
 # Create your models here.
 
 class Cluster(models.Model):
+    supplier = models.ForeignKey('Supplier', related_name='cluster', null=True, blank=True)
     name = models.CharField(_("name"), max_length = 50, blank=False)
 
     def __str__(self):
@@ -99,6 +100,7 @@ class Worker(Person):
 
 class Supplier(Person):
     snail_mail = models.CharField(_("address"), max_length = 1000, blank="True")
+    minimum_order = models.IntegerField(_("minimum order"), null=False, blank=False, default=0)
 
     def __str__(self):
         return self.first_name

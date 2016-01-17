@@ -37,5 +37,5 @@ class RequestAdmin(admin.ModelAdmin):
     model = Request
     inlines = (RequestItemInline,)
 
-#admin.site.register(RequestItem, RequestItemAdmin)
+admin.site.register(RequestItem, RequestItemAdmin)
 admin.site.register(Request, RequestAdmin)
