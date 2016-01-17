@@ -33,15 +33,45 @@ def default_target_date():
     return timezone.now() + datetime.timedelta(days=delta_days)
 
 
-class Request(models.Model):
+class Wishlist(models.Model):
+    product = models.CharField(_("product"), default = "Nilzan 500ml", max_length=20, null=False, blank=False)
     cluster = models.ForeignKey(Cluster)
     supplier = models.ForeignKey(Supplier)
-    submission_date = models.DateTimeField(auto_now_add=True, null=False)
-    target_date = models.DateField(default=default_target_date, null=False, blank=False)
+    submission_date = models.DateTimeField(_("submission date"), auto_now_add=True, null=False)
+    target_date = models.DateTimeField(_("target date"), default=default_target_date, null=False, blank=False)
+    amount = models.IntegerField(_("amount"), default=0, null=False, blank=False)
+
+    @property
+    def goal(self):
+        return self.supplier.minimum_order
+
+    @property
+    def progress(self):
+        if self.goal < 1:
+            return 0
+        else:
+            return self.amount / self.goal
+
+    @property
+    def is_expired(self):
+        return timezone.now() > self.target_date
+
+    @property
+    def is_success(self):
+        return self.amount >= self.goal
+
+    @property
+    def is_active(self):
+        return not self.is_expired
+
+    def is_participant(self, worker):
+        return self.items.filter(worker=worker).count()
+
+    def can_participate(self, worker):
+        return worker.village in self.cluster.villages.all()
 
 
-class RequestItem(models.Model):
-    request = models.ForeignKey(Request, null=False, blank=False, related_name='items')
+class WishlistItem(models.Model):
+    wishlist = models.ForeignKey(Wishlist, null=False, blank=False, related_name='items')
     worker = models.ForeignKey(Worker, null=False, blank=False)
-    name = models.CharField(_("name"), default = "Nilzan", max_length=20, null=False, blank=False)
     quantity = models.IntegerField(_("quantity"), default = "0", null=False, blank=False)

@@ -21,21 +21,21 @@
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
-from orders.models import Request, RequestItem
+from orders.models import Wishlist, WishlistItem
 
 
-class RequestItemAdmin(admin.ModelAdmin):
-    model = RequestItem
+class WishlistItemAdmin(admin.ModelAdmin):
+    model = WishlistItem
 
 
-class RequestItemInline(admin.StackedInline):
-    model = RequestItem
+class WishlistItemInline(admin.StackedInline):
+    model = WishlistItem
     verbose_name_plural = _("items")
 
     
-class RequestAdmin(admin.ModelAdmin):
-    model = Request
-    inlines = (RequestItemInline,)
+class WishlistAdmin(admin.ModelAdmin):
+    model = Wishlist
+    inlines = (WishlistItemInline,)
 
-admin.site.register(RequestItem, RequestItemAdmin)
-admin.site.register(Request, RequestAdmin)
+admin.site.register(WishlistItem, WishlistItemAdmin)
+admin.site.register(Wishlist, WishlistAdmin)

@@ -20,15 +20,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.views import login, logout
 
-from orders.views import WishlistView
+from orders.views import wishlist_detail, place_wish
 from users.views import index
 
-urlpatterns = patterns('',
-                       url(r'^$', index, name='index'),
-                       url(r'^login/$', login, name='login'),
-                       url(r'^logout/$', logout, name='logout'),
-                       url(r'^admin/', admin.site.urls, name='admin'),
-                       url(r'^wishlist', WishlistView.as_view(), name='wishlist'),
 
-)+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
+urlpatterns = [
+    url(r'^$', index, name='index'),
+    url(r'^login/$', login, kwargs={'template_name': 'login.html'}, name='login'),
+    url(r'^logout/$', logout, kwargs={'next_page': '/'}, name='logout'),
+    url(r'^admin/', admin.site.urls, name='admin'),
+    url(r'^wishlist/(?P<pk>[0-9]+)/$', wishlist_detail, name='wishlist_detail'), #WishlistView.as_view()
+    url(r'^wishlist/(?P<pk>[0-9]+)/place_wish/$', place_wish, name='place_wish'),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
