@@ -23,6 +23,7 @@ from django.views.generic.base import TemplateView
 from django.utils.translation import ugettext_lazy as _
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
+from django.contrib.auth.decorators import login_required
 
 from orders.models import Wishlist, WishlistItem
 from users.models import Worker
@@ -34,20 +35,21 @@ logger = logging.getLogger(__name__)
 class WishlistView(TemplateView):
     template_name="wishlist.html"
 
-
+@login_required
 def wishlist_detail(request, pk):
     wishlist = get_object_or_404(Wishlist, pk=pk)
-    worker = Worker.objects.get(id=1) # XXX hardcoded
+    worker = Worker.objects.get(user_id=request.user.id)
     return render(request, 'wishlist.html', {
         'worker' : worker,
         'wishlist' : wishlist,})
 
 
+@login_required
 def place_wish(request, pk):
-    worker = Worker.objects.get(id=1) # XXX hardcoded
+    worker = Worker.objects.get(user_id=request.user.id)
     try:
         quantity = int(request.POST['quantity'])
-        logger.debug(quantity)
+        #logger.debug(quantity)
     except (KeyError):
         quantity = 0
     active_wishlist = get_object_or_404(Wishlist, pk=pk)
