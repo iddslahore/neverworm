@@ -2,17 +2,14 @@
 {% block title %}Milk-E-Way | Wishlist{% endblock %}
 {% block content %}
 <div class="form-mini-container">
-  <h1>Wish List</h1>
-  <p>Hey {{worker.first_name}}! We have created a new wishlist for
-  {{wishlist.product}} in {{wishlist.cluster.name}}. How many in mL do you need for the next month. {{wishlist.amount}}</p>
-  <form action="{% url 'place_wish' wishlist.id %}" method="post">
+<fieldset>
+<legend>New wishlist in {{wishlist.cluster.name}} area!</legend>
+  <p>Hey {{worker.first_name}}! We have created a new wishlist for {{wishlist.product}}. Let us know about your demand in the field below. So far <strong>{{wishlist.amount}}/{{wishlist.goal}}</strong> units have been purchased.</p>
+  <form class="form-control" action="{% url 'place_wish' wishlist.id %}" method="post">
     {% csrf_token %}
-    <div class="form-row">
-      <input type="number" name="quantity" id="{{ wishlist.id }}" min="3" max="50" placeholder="Enter Quantity in mL"/>
-    </div>
-    <div class="form-row form-last-row">
-      <input type="submit" value="Confirm"/>
-    </div>
+      <input type="number" name="quantity" id="{{ wishlist.id }}" min="3" max="50" placeholder="Please enter desired quantity here"/>
+      <input type="submit" value="Order"/>
   </form>
+</fieldset>
 </div>
 {% endblock %}
