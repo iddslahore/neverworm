@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Milk-E-Way | Wishlist{% endblock %}
+{% block content %}
+<div class="form-mini-container">
+  <h1>Wish List</h1>
+  <p>Hey {{worker.firstname}}! We have created a new wishlist for
+  {{medicine}}. How many in mL do you need for the next month.</p>
+  <form class="form-mini" method="post" action="Post form info on a link here" target="blank">
+    <div class="form-row">
+      <input type="number" name="Quantity" min="3" max="50" placeholder="Enter Quantity in mL">
+    </div>
+    <div class="form-row form-last-row">
+      <button type="submit" >Confirm</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

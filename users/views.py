@@ -28,4 +28,4 @@ def index(request):
     village_count = Village.objects.all().count()
     context = {'worker_count': worker_count,
                'village_count': village_count,}
-    return render(request, 'neverworm/index.html',context)
+    return render(request, 'index.html',context)

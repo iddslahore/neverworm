@@ -58,42 +58,42 @@ ROOT_URLCONF = 'neverworm.urls'
 
 # Settings for asset pipeline
 
-PIPELINE = {
-    'PIPELINE_ENABLED': True,
-    'JS_COMPRESSOR' : '',
-    'CSS_COMPRESSOR' : '',
-    'COMPILERS': ['pipeline.compilers.less.LessCompiler',],
-    'STYLESHEETS': {
-        'bootstrap': {
-            'source_filenames': (
-                'twitter_bootstrap/less/bootstrap.less',
-            ),
-            'output_filename': 'css/bootstrap.css',
-            'extra_context': {
-                'media': 'screen,projection',
-            },
-        },
-    },
-     'JAVASCRIPT' : {
-         'bootstrap': {
-             'source_filenames': (
-                 'twitter_bootstrap/js/transition.js',
-                 'twitter_bootstrap/js/modal.js',
-                 'twitter_bootstrap/js/dropdown.js',
-                 'twitter_bootstrap/js/scrollspy.js',
-                 'twitter_bootstrap/js/tab.js',
-                 'twitter_bootstrap/js/tooltip.js',
-                 'twitter_bootstrap/js/popover.js',
-                 'twitter_bootstrap/js/alert.js',
-                 'twitter_bootstrap/js/button.js',
-                 'twitter_bootstrap/js/collapse.js',
-                 'twitter_bootstrap/js/carousel.js',
-                 'twitter_bootstrap/js/affix.js',
-             ),
-            'output_filename': 'js/bootstrap.js',
-         },
-     },
-}
+# PIPELINE = {
+#     'PIPELINE_ENABLED': True,
+#     'JS_COMPRESSOR' : '',
+#     'CSS_COMPRESSOR' : '',
+#     'COMPILERS': ['pipeline.compilers.less.LessCompiler',],
+#     'STYLESHEETS': {
+#         'bootstrap': {
+#             'source_filenames': (
+#                 'twitter_bootstrap/less/bootstrap.less',
+#             ),
+#             'output_filename': 'css/bootstrap.css',
+#             'extra_context': {
+#                 'media': 'screen,projection',
+#             },
+#         },
+#     },
+#      'JAVASCRIPT' : {
+#          'bootstrap': {
+#              'source_filenames': (
+#                  'twitter_bootstrap/js/transition.js',
+#                  'twitter_bootstrap/js/modal.js',
+#                  'twitter_bootstrap/js/dropdown.js',
+#                  'twitter_bootstrap/js/scrollspy.js',
+#                  'twitter_bootstrap/js/tab.js',
+#                  'twitter_bootstrap/js/tooltip.js',
+#                  'twitter_bootstrap/js/popover.js',
+#                  'twitter_bootstrap/js/alert.js',
+#                  'twitter_bootstrap/js/button.js',
+#                  'twitter_bootstrap/js/collapse.js',
+#                  'twitter_bootstrap/js/carousel.js',
+#                  'twitter_bootstrap/js/affix.js',
+#              ),
+#             'output_filename': 'js/bootstrap.js',
+#          },
+#      },
+# }
 
 # Settings for django-bootstrap3
 # BOOTSTRAP3 = {
@@ -130,8 +130,6 @@ WSGI_APPLICATION = 'neverworm.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-
-#TODO: when we deploy in prod, use DEBUG as a boolean for this condition
 DATABASES = {}
 if os.environ.get('DATABASE_URL'):
     import dj_database_url

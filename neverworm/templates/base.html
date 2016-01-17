@@ -1,9 +1,8 @@
 <!doctype html>
 <html>
   {% load staticfiles %}
-  <!-- {% load pipeline %} -->
   <head>
-    <!-- {% stylesheet 'bootstrap' %} -->
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css" media="screen,projection" />
     <link href="{% static 'css/neverworm.css' %}" rel="stylesheet" type="text/css" media="screen,projection" />
     <title>{% block title %}Welcome to Milk-E-Way!{% endblock %}</title>
   </head>
@@ -28,6 +27,5 @@
     <div id="content">
       {% block content %} {% endblock %}
     </div>
-    <!-- {% javascript 'bootstrap' %} -->
   </body>
 </html>
