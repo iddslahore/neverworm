@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
@@ -37,6 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+#    'twitter_bootstrap',
+#    'pipeline',
     'users',
     'tracking',
     'orders',
@@ -55,21 +56,74 @@ MIDDLEWARE_CLASSES = [
 
 ROOT_URLCONF = 'neverworm.urls'
 
+# Settings for asset pipeline
+
+PIPELINE = {
+    'PIPELINE_ENABLED': True,
+    'JS_COMPRESSOR' : '',
+    'CSS_COMPRESSOR' : '',
+    'COMPILERS': ['pipeline.compilers.less.LessCompiler',],
+    'STYLESHEETS': {
+        'bootstrap': {
+            'source_filenames': (
+                'twitter_bootstrap/less/bootstrap.less',
+            ),
+            'output_filename': 'css/bootstrap.css',
+            'extra_context': {
+                'media': 'screen,projection',
+            },
+        },
+    },
+     'JAVASCRIPT' : {
+         'bootstrap': {
+             'source_filenames': (
+                 'twitter_bootstrap/js/transition.js',
+                 'twitter_bootstrap/js/modal.js',
+                 'twitter_bootstrap/js/dropdown.js',
+                 'twitter_bootstrap/js/scrollspy.js',
+                 'twitter_bootstrap/js/tab.js',
+                 'twitter_bootstrap/js/tooltip.js',
+                 'twitter_bootstrap/js/popover.js',
+                 'twitter_bootstrap/js/alert.js',
+                 'twitter_bootstrap/js/button.js',
+                 'twitter_bootstrap/js/collapse.js',
+                 'twitter_bootstrap/js/carousel.js',
+                 'twitter_bootstrap/js/affix.js',
+             ),
+            'output_filename': 'js/bootstrap.js',
+         },
+     },
+}
+
+# Settings for django-bootstrap3
+# BOOTSTRAP3 = {
+#     'set_required': False,
+#     'error_css_class': 'bootstrap3-error',
+#     'required_css_class': 'bootstrap3-required',
+#     'javascript_in_head': True,
+# }
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'neverworm/templates'),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
+                'django.core.context_processors.i18n',
+                'django.core.context_processors.media',
+                'django.core.context_processors.static',
+                'django.core.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
             ],
         },
     },
 ]
+
+LOGIN_REDIRECT_URL = '/'
 
 WSGI_APPLICATION = 'neverworm.wsgi.application'
 
@@ -129,3 +183,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'staticfiles'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'neverworm/static'),
+)
+
+#STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
+
+#App stuff
+DEADLINE_DELTA_DAYS = 6

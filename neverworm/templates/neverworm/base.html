@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+  {% load staticfiles %}
+  <!-- {% load pipeline %} -->
+  <head>
+    <!-- {% stylesheet 'bootstrap' %} -->
+    <link href="{% static 'css/neverworm.css' %}" rel="stylesheet" type="text/css" media="screen,projection" />
+    <title>{% block title %}Welcome to Milk-E-Way!{% endblock %}</title>
+  </head>
+  <body>
+    <div id="navbar">
+      {% block navbar %}
+      <div class="nav">
+        <div class="container">
+	  <ul class="pull-left">
+	    <li><a href="#">Dashboard</a></li>
+	    <li><a href="#">Wishlist</a></li>
+	  </ul>
+	  <ul class="pull-right">
+	    <li><a href="#">Signup</a></li>
+	    <li><a href="#">Login</a></li>
+	    <li><a href="#">About</a></li>
+	  </ul>
+        </div>
+      </div>
+      {% endblock %}
+    </div>
+    <div id="content">
+      {% block content %} {% endblock %}
+    </div>
+    <!-- {% javascript 'bootstrap' %} -->
+  </body>
+</html>
