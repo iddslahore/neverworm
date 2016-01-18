@@ -20,6 +20,7 @@
 
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.base import TemplateView
+from django.views.generic import ListView
 from django.utils.translation import ugettext_lazy as _
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
@@ -32,13 +33,20 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class WishlistView(TemplateView):
-    template_name="wishlist.html"
+@login_required
+class Dashboard(ListView):
+    model = Wishlist
+    template_name = 'dashboard.html'
+
+    def get_queryset(self):
+        worker = get_object_or_404(Worker, user_id=self.request.user.id)
+        return Wishlist.objects.filter(cluster=worker.village.cluster)
+
 
 @login_required
 def wishlist_detail(request, pk):
     wishlist = get_object_or_404(Wishlist, pk=pk)
-    worker = Worker.objects.get(user_id=request.user.id)
+    worker = get_object_or_404(Worker, user_id=request.user.id)
     return render(request, 'wishlist.html', {
         'worker' : worker,
         'wishlist' : wishlist,})
@@ -46,32 +54,26 @@ def wishlist_detail(request, pk):
 
 @login_required
 def place_wish(request, pk):
-    worker = Worker.objects.get(user_id=request.user.id)
+    worker = get_object_or_404(Worker, user=request.user)
     try:
         quantity = int(request.POST['quantity'])
-        #logger.debug(quantity)
     except (KeyError):
         quantity = 0
+
     active_wishlist = get_object_or_404(Wishlist, pk=pk)
     if not active_wishlist.is_active:
-        logger.debug("redirect to dashboard with message 'wishlist not active'")
         error_message = _("Wishlist not active!")
     elif not active_wishlist.can_participate(worker):
-        logger.debug("redirect to dashboard with message 'not allowed'")
-        error_message = _("Not allowed!")
+        error_message = _("You are not allowed to join a wishlist that is not in your area!")
     elif active_wishlist.is_participant(worker):
-        logger.debug("redirect to dashboard with message 'you have already voted'")
-        #or update??
-        error_message = _("You have already voted!")
+        error_message = _("You have already joined this wishlist!")
     else:
         wish = WishlistItem(worker=worker, quantity=quantity, wishlist=active_wishlist)
         wish.save()
         active_wishlist.amount += wish.quantity
         active_wishlist.save()
-        logger.error("redirect to dashboard with message 'you have successfully placed your wish'")
-        error_message = _("Thank you!") 
-        logger.debug("emit signal wish_placed")
+        error_message = _("You have successfully placed your order! We will let you know when the deal is closed. Thank you!")
+        logger.debug("TODO: emit signal wish_placed")
 
-
-    return HttpResponseRedirect(reverse('wishlist_detail', args=(active_wishlist.id,))) # TODO: put error messages in context
-
+    return render(request, 'dashboard.html', {
+        'error_message' : error_message,})

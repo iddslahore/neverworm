@@ -14,14 +14,13 @@
       {% block navbar %}
       <div id="navbar" class="nav">
 	<ul class="pull-left">
-	  <li><a href="#">Dashboard</a></li>
-	  <li><a href="#">Wishlist</a></li>
-	  <li><a href="#">About</a></li>
+	  <li><a href="/">Home</a></li>
+	  <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+
 	</ul>
 	<ul class="pull-right">
           {% if not user.is_authenticated %}
-	  <li><a href="#">Signup</a></li>
-	  <li><a href="/login">Login</a></li>
+	  <li><a href="{% url 'login' %}">Login</a></li>
           {% else %}
 	  <li>Hello, {{user.username}}!</li>
 	  <li><a href="/logout">Logout</a></li>

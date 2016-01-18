@@ -1,14 +1,12 @@
 {% extends "base.html" %}
-{% block title %}Milk-E-Way | Wishlist{% endblock %}
+{% block title %}Milk-e-Way | Welcome{% endblock %}
 {% block content %}
 <div id="index-content">
   <div class="jumbotron">
     <div class="container">
       <h1>Welcome to Milk-e-way</h1>
       {% if worker_count %}
-      <p>We have {{worker_count}} worker(s) in {{village_count}} vilage(s)!</p>
-      {% else %}
-      <p>No workers available.</p>
+      <p>Connecting {{worker_count}} Women Livestock Extension Workers in {{village_count}} villages!</p>
       {% endif %}
       <p>
         <button type="submit" class="btn btn-primary">

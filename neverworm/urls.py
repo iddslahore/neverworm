@@ -20,7 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.views import login, logout
 
-from orders.views import wishlist_detail, place_wish
+from orders.views import wishlist_detail, place_wish, Dashboard
 from users.views import index
 
 
@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^login/$', login, kwargs={'template_name': 'login.html'}, name='login'),
     url(r'^logout/$', logout, kwargs={'next_page': '/'}, name='logout'),
     url(r'^admin/', admin.site.urls, name='admin'),
-    url(r'^wishlist/(?P<pk>[0-9]+)/$', wishlist_detail, name='wishlist_detail'), #WishlistView.as_view()
+    url(r'^dashboard/$', Dashboard.as_view(), name='dashboard'),
+    url(r'^wishlist/(?P<pk>[0-9]+)/$', wishlist_detail, name='wishlist_detail'),
     url(r'^wishlist/(?P<pk>[0-9]+)/place_wish/$', place_wish, name='place_wish'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

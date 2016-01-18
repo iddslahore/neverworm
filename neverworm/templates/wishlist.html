@@ -1,15 +1,15 @@
 {% extends "base.html" %}
-{% block title %}Milk-E-Way | Wishlist{% endblock %}
+{% block title %}Milk-e-Way | Wishlist{% endblock %}
 {% block content %}
-<div class="form-mini-container">
-<fieldset>
-<legend>New wishlist in {{wishlist.cluster.name}} area!</legend>
-  <p>Hey {{worker.first_name}}! We have created a new wishlist for {{wishlist.product}}. Let us know about your demand in the field below. So far <strong>{{wishlist.amount}}/{{wishlist.goal}}</strong> units have been purchased.</p>
-  <form class="form-control" action="{% url 'place_wish' wishlist.id %}" method="post">
-    {% csrf_token %}
+<div class="form">
+  <fieldset>
+    <legend>New wishlist in {{wishlist.cluster.name}} area!</legend>
+    <p>Hey {{worker.first_name}}! There is a new wishlist for {{wishlist.product}}. Let us know how many units you need and we will do our best to close a group deal by {{ wishlist.target_date|date }}. So far <strong>{{wishlist.amount}}/{{wishlist.goal}}</strong> units have been purchased.</p>
+    <form class="form-control" action="{% url 'place_wish' wishlist.id %}" method="post">
+      {% csrf_token %}
       <input type="number" name="quantity" id="{{ wishlist.id }}" min="3" max="50" placeholder="Please enter desired quantity here"/>
       <input type="submit" value="Order"/>
-  </form>
-</fieldset>
+    </form>
+  </fieldset>
 </div>
 {% endblock %}

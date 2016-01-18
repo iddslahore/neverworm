@@ -41,6 +41,11 @@ class Wishlist(models.Model):
     target_date = models.DateTimeField(_("target date"), default=default_target_date, null=False, blank=False)
     amount = models.IntegerField(_("amount"), default=0, null=False, blank=False)
 
+    def __str__(self):
+        return _("%(goal)sx of %(product)s in %(cluster)s") % {'goal': self.goal,
+                                                               'product': self.product,
+                                                               'cluster': self.cluster,}
+
     @property
     def goal(self):
         return self.supplier.minimum_order
@@ -75,3 +80,7 @@ class WishlistItem(models.Model):
     wishlist = models.ForeignKey(Wishlist, null=False, blank=False, related_name='items')
     worker = models.ForeignKey(Worker, null=False, blank=False)
     quantity = models.IntegerField(_("quantity"), default = "0", null=False, blank=False)
+
+    def __str__(self):
+        return _("%(quantity)s units for %(name)s") % {'quantity': self.quantity,
+                                                       'name': self.worker,}

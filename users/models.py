@@ -42,7 +42,7 @@ class Village(models.Model):
     cluster = models.ForeignKey(Cluster, null=False, blank=False, related_name='villages')
 
     def __str__(self):
-        return self.name + ', ' + self.cluster.name
+        return self.name + ' (' + self.cluster.name + ')'
 
 
 class User(DjangoUser):
