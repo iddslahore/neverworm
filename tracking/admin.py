@@ -18,13 +18,12 @@
 # along with Neverworm.  If not, see <http://www.gnu.org/licenses/>.
 
 
-from django.contrib import admin
-#from django.utils.translation import ugettext_lazy as _
+# from django.contrib import admin
 
-from tracking.models import Visit
+# from tracking.models import Visit
 
 
-class VisitAdmin(admin.ModelAdmin):
-    model = Visit
+# class VisitAdmin(admin.ModelAdmin):
+#     model = Visit
 
-admin.site.register(Visit, VisitAdmin)
+# admin.site.register(Visit, VisitAdmin)

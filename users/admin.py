@@ -19,11 +19,10 @@
 
 
 from django.contrib import admin
-#from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User as DjangoUser
 from django.contrib.auth.admin import UserAdmin
 
-from users.models import User, Person, Worker, Farmer, Supplier, Cluster, Village
+from users.models import User, Person, Worker, Supplier, Cluster, Village
 
 
 class UserAdmin(UserAdmin):
@@ -34,9 +33,6 @@ class PersonAdmin(admin.ModelAdmin):
 
 class WorkerAdmin(PersonAdmin):
     model = Worker
-
-class FarmerAdmin(PersonAdmin):
-    model = Farmer
 
 class SupplierAdmin(PersonAdmin):
     model = Supplier
@@ -49,7 +45,6 @@ class ClusterAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Worker, WorkerAdmin)
-admin.site.register(Farmer, FarmerAdmin)
 admin.site.register(Supplier, SupplierAdmin)
 admin.site.register(Village, VillageAdmin)
 admin.site.register(Cluster, ClusterAdmin)

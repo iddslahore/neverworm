@@ -18,23 +18,23 @@
 # along with Neverworm.  If not, see <http://www.gnu.org/licenses/>.
 
 
-from django.db import models
-from django.utils.translation import ugettext_lazy as _
+# from django.db import models
+# from django.utils.translation import ugettext_lazy as _
 
-from users.models import Farmer, Worker
+# from users.models import Farmer, Worker
 
-# Create your models here.
+# # Create your models here.
 
-class Visit(models.Model):
-    date = models.DateTimeField(_("date of visit"))
-    next_visit = models.DateField(_("next visit"))
-    doses_applied = models.IntegerField(_("doses applied"))
-    mecicine_applied = models.CharField(_("medicine applied"), default = "Nilzan", max_length=20)
-    worker = models.ForeignKey(Worker, related_name='visits')
-    farmer = models.ForeignKey(Farmer, related_name='visits')
+# class Visit(models.Model):
+#     date = models.DateTimeField(_("date of visit"))
+#     next_visit = models.DateField(_("next visit"))
+#     doses_applied = models.IntegerField(_("doses applied"))
+#     mecicine_applied = models.CharField(_("medicine applied"), default = "Nilzan", max_length=20)
+#     worker = models.ForeignKey(Worker, related_name='visits')
+#     farmer = models.ForeignKey(Farmer, related_name='visits')
 
-    def is_past():
-        pass
+#     def is_past():
+#         pass
 
-    def is_due():
-        pass
+#     def is_due():
+#         pass
