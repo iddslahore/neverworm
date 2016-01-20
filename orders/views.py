@@ -33,7 +33,6 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-@login_required
 class Dashboard(ListView):
     model = Wishlist
     template_name = 'dashboard.html'
