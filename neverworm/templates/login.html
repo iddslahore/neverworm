@@ -1,16 +1,29 @@
 {% extends "base.html" %}
 {% block title %}Milk-E-Way | Login{% endblock %}
 {% block content %}
-<form action="{% url 'login' %}" method="post" accept-charset="utf-8">
+<div class="row">
+<div class="col-md-4">
+<form class="form-signin" action="{% url 'login' %}" method="post" accept-charset="utf-8">
     {% csrf_token %}
     {% for field in form %}
-        <label>{{ field.label }}</label>
         {% if field.errors %}
+            <label>{{ field.label }}</label>
             {{ field.errors }}
         {% endif %}
-        {{ field }}
     {% endfor %}
-    <input type="hidden" name="next" value="{{ next }}" />
-    <input class="button small" type="submit" value="Submit"/>
+      <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="id_username" class="sr-only">Username</label>
+        <input name="username" type="text" id="id_username" class="form-control" placeholder="Username" required autofocus/>
+        <label for="id_password" class="sr-only">Password</label>
+        <input name="password" type="password" id="id_password" class="form-control" placeholder="Password" required/>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div>
+        <input type="hidden" name="next" value="{{ next }}" />
+        <input class="btn btn-md btn-primary btn-block" type="submit" value="Sign in"/>
 </form>
+</div>
+</div>
 {% endblock %}
