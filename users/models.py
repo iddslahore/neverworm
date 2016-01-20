@@ -100,7 +100,6 @@ class Worker(Person):
 
 class Supplier(Person):
     snail_mail = models.CharField(_("address"), max_length = 1000, blank="True")
-    minimum_order = models.IntegerField(_("minimum order"), null=False, blank=False, default=0)
 
     def __str__(self):
         return self.first_name

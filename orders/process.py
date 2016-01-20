@@ -39,7 +39,6 @@ def schedule_polls():
 
 def send_poll(wishlist, worker):
     wishlist.owner = Worker.objects.get(id=3) # XXX: hardcoded
-    wishlist.product = 'Nilwormex' # XXX: hardcoded
     if worker.phone_number:
         message = _('Hey, {first_name}, there is a new wishlist for {product} in your area. '
                     'If you are interested please contact {owner_name} from {owner_village} '

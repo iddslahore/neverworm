@@ -33,18 +33,61 @@ def default_target_date():
     return timezone.now() + datetime.timedelta(days=delta_days)
 
 
+class Product(models.Model):
+    description = models.CharField(_("description"), default = "Nilzan Plus 1000 ml", max_length=20, null=False, blank=False)
+    manufacturer = models.CharField(_("manufacturer"), default = "ICI", max_length=20, null=False, blank=False)
+
+
+class ProductOffer(models.Model):
+    product = models.ForeignKey(Product)
+    supplier = models.ForeignKey(Supplier)
+    min_order = models.IntegerField(_("minimum order"), null=False, blank=False, default=0)
+    unit_price = models.DecimalField(_("unit price"), decimal_places=2, max_digits=10, null=False, blank=False, default=0)
+
+
 class Wishlist(models.Model):
-    product = models.CharField(_("product"), default = "Nilzan 500ml", max_length=20, null=False, blank=False)
+
+    STATUS_CHOICES = (
+        ('N', _('NEW')),
+        ('P', _('PUBLISHED')),
+        ('Q', _('QUOTED')),
+        ('S', _('SHIPPED')),
+        ('C', _('CANCELLED')),
+    )
+
+    owner = models.ForeignKey(Worker)
+    product = models.ForeignKey(Product)
     cluster = models.ForeignKey(Cluster)
     supplier = models.ForeignKey(Supplier)
     submission_date = models.DateTimeField(_("submission date"), auto_now_add=True, null=False)
-    target_date = models.DateTimeField(_("target date"), default=default_target_date, null=False, blank=False)
+    shipping_date = models.DateTimeField(_("shipping date"), null=False, blank=False)
     amount = models.IntegerField(_("amount"), default=0, null=False, blank=False)
+    status = models.CharField(_("status"), max_length=1, default='N', choices=STATUS_CHOICES)
 
     def __str__(self):
-        return _("%(goal)sx of %(product)s in %(cluster)s") % {'goal': self.goal,
-                                                               'product': self.product,
-                                                               'cluster': self.cluster,}
+        return _("{goal} units of {product} in {cluster}").format(goal=self.goal,
+                                                                  product=self.product,
+                                                                  cluster=self.cluster)
+
+    @property
+    def is_new(self):
+        return self.status == 'N'
+
+    @property
+    def is_published(self):
+        return self.status == 'P'
+
+    @property
+    def is_quoted(self):
+        return self.status == 'Q'
+
+    @property
+    def is_shipped(self):
+        return self.status == 'S'
+
+    @property
+    def is_canceled(self):
+        return self.status == 'C'
 
     @property
     def goal(self):
@@ -65,10 +108,6 @@ class Wishlist(models.Model):
     def is_success(self):
         return self.amount >= self.goal
 
-    @property
-    def is_active(self):
-        return not self.is_expired
-
     def is_participant(self, worker):
         return self.items.filter(worker=worker).count()
 
@@ -79,8 +118,8 @@ class Wishlist(models.Model):
 class WishlistItem(models.Model):
     wishlist = models.ForeignKey(Wishlist, null=False, blank=False, related_name='items')
     worker = models.ForeignKey(Worker, null=False, blank=False)
-    quantity = models.IntegerField(_("quantity"), default = "0", null=False, blank=False)
+    quantity = models.IntegerField(_("quantity"), default = 0, null=False, blank=False)
 
     def __str__(self):
-        return _("%(quantity)s units for %(name)s") % {'quantity': self.quantity,
-                                                       'name': self.worker,}
+        return _("{quantity} units for {name}").format(quantity=self.quantity,
+                                                       name=self.worker)
