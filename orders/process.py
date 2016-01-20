@@ -20,9 +20,10 @@
 
 from django.utils.translation import ugettext_lazy as _
 
-from users.models import Cluster, Supplier
+from users.models import Cluster, Supplier, Worker
 from orders.models import Wishlist
 
+import requests
 import logging
 logger = logging.getLogger(__name__)
 
@@ -37,9 +38,27 @@ def schedule_polls():
                     send_poll(wl, w)
 
 def send_poll(wishlist, worker):
+    wishlist.owner = Worker.objects.get(id=3) # XXX: hardcoded
+    wishlist.product = 'Nilwormex' # XXX: hardcoded
     if worker.phone_number:
-        logger.debug(_('[SMS or push to %(phone_number)s] Hey, %(first_name)s, there is a new poll deadline is %(target_date)s')
-                     % {'phone_number': worker.phone_number,
-                        'first_name' : worker.first_name,
-                        'target_date' : wishlist.target_date,
-                    })
+        message = _('Hey, {first_name}, there is a new wishlist for {product} in your area. '
+                    'If you are interested please contact {owner_name} from {owner_village} '
+                    'at {owner_phone_number}').format(first_name=worker.first_name,
+                                                      product=wishlist.product,
+                                                      owner_name=wishlist.owner.public_name,
+                                                      owner_phone_number=wishlist.owner.phone_number,
+                                                      owner_village=wishlist.owner.village.name)
+        send_sms(worker.phone_number, message)
+
+def send_sms(number, message):
+    logger.debug(_('[SMS or push to {0}] {1}').format(number, message))
+    username = 'itu'
+    password = 'iTu$m$aLL'
+    params = { 'message'  : message,
+               'username' : username,
+               'password' : password,
+               'number'   : number,
+               }
+    REQUEST_URL = "https://send.smsall.pk/tpapi_gateway.py/outgoing"
+    r = requests.get(REQUEST_URL, params=params, verify=False)
+    r.raise_for_status()
