@@ -21,15 +21,16 @@
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
-from orders.models import Wishlist, WishlistItem
+from orders.models import Wishlist, WishlistItem, Product, ProductOffer
 
 
 class WishlistItemAdmin(admin.ModelAdmin):
     model = WishlistItem
 
 
-class WishlistItemInline(admin.StackedInline):
+class WishlistItemInline(admin.TabularInline):
     model = WishlistItem
+    extra = 0
     verbose_name_plural = _("items")
 
     
@@ -37,5 +38,18 @@ class WishlistAdmin(admin.ModelAdmin):
     model = Wishlist
     inlines = (WishlistItemInline,)
 
+
+class ProductOfferInline(admin.TabularInline):
+    model = ProductOffer
+    extra = 0
+    verbose_name_plural = _("product offers")
+
+
+class ProductAdmin(admin.ModelAdmin):
+    model = Product
+    inlines = (ProductOfferInline,)
+
+
 admin.site.register(WishlistItem, WishlistItemAdmin)
+admin.site.register(Product, ProductAdmin)
 admin.site.register(Wishlist, WishlistAdmin)

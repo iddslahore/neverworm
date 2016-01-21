@@ -21,7 +21,7 @@
 from django.core.management.base import BaseCommand, CommandError
 
 from orders import process
-from orders.process import schedule_polls
+from orders.process import wishlist_populate
 
 import logging
 logger = logging.getLogger(__name__)
@@ -30,5 +30,5 @@ class Command(BaseCommand):
     help = 'Create polls for group buy'
 
     def handle(self, *args, **options):
-        process.schedule_polls()
+        process.wishlist_populate()
         self.stdout.write(self.style.SUCCESS('Successfully created polls'))

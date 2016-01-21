@@ -18,22 +18,6 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Farmer',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('first_name', models.CharField(blank=True, max_length=128, verbose_name='first name')),
-                ('last_name', models.CharField(blank=True, max_length=128, verbose_name='last name')),
-                ('latitude', models.CharField(blank=True, max_length=128, verbose_name='latitude')),
-                ('longitude', models.CharField(blank=True, max_length=128, verbose_name='longitude')),
-                ('phone_number', models.CharField(blank=True, max_length=16, validators=[django.core.validators.RegexValidator(message="Phone number must be entered in the format:                                  '+999999999'. Up to 15 digits allowed.", regex='^\\+?1?\\d{9,15}$')], verbose_name='phone number')),
-                ('gender', models.CharField(choices=[('M', 'Male'), ('F', 'Female'), ('U', 'Undefined')], default='U', max_length=1, verbose_name='gender')),
-                ('animal_count', models.IntegerField(verbose_name='animal count')),
-            ],
-            options={
-                'abstract': False,
-            },
-        ),
-        migrations.CreateModel(
             name='Region',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -105,11 +89,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='supplier',
-            name='user',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='users.User'),
-        ),
-        migrations.AddField(
-            model_name='farmer',
             name='user',
             field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='users.User'),
         ),

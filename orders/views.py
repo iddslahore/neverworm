@@ -20,14 +20,15 @@
 
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.base import TemplateView
-from django.views.generic import ListView
+from django.views.generic import ListView, CreateView
 from django.utils.translation import ugettext_lazy as _
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 
-from orders.models import Wishlist, WishlistItem
+from orders.models import Wishlist, WishlistItem, ProductOffer
 from users.models import Worker
+from orders import process
 
 import logging
 logger = logging.getLogger(__name__)
@@ -39,7 +40,42 @@ class Dashboard(ListView):
 
     def get_queryset(self):
         worker = get_object_or_404(Worker, user_id=self.request.user.id)
-        return Wishlist.objects.filter(cluster=worker.village.cluster)
+        return Wishlist.objects.filter(cluster=worker.village.cluster)[0:5]
+
+@login_required
+def wishlist_create(request):
+    worker = get_object_or_404(Worker, user_id=request.user.id)
+
+    if request.method == 'GET':
+        product_offers = ProductOffer.objects.filter(supplier__cluster=worker.village.cluster)
+
+        return render(request, 'wishlist_create.html', {
+            'worker' : worker,
+            'product_offers' : product_offers})
+
+    elif request.method == 'POST':
+        try:
+            product_offer_id = request.POST['p']
+            logger.debug("product_offer_id: {}".format(product_offer_id))
+        except (KeyError):
+            error_message = _("Error. Invalid product!")
+            logger.debug("Error. Invalid product!")
+            # error message
+            pass
+        worker = get_object_or_404(Worker, user_id=request.user.id)
+        product_offer = get_object_or_404(ProductOffer, id=product_offer_id)
+        wishlist = Wishlist.objects.create(owner = worker,
+                                           cluster = worker.village.cluster,
+                                           product_offer = product_offer,
+                                           status = 'P')
+        wishlist = Wishlist.objects.get(id=wishlist.id)
+        error_message = _("You have successfully created your wishlist! Thank you!")
+        logger.debug("TODO: emit signal wishlist_created")
+        #TODO: conectar com signal
+        process.wishlist_alert(wishlist)
+
+    return render(request, 'dashboard.html', {
+        'error_message' : error_message,})
 
 
 @login_required

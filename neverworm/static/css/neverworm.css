@@ -1,5 +1,7 @@
+@import url(https://fonts.googleapis.com/css?family=Fredoka+One);
+
 .nav {
-    background-color: #dfdfde;
+    background-color: #52a542;
 }
 
 .nav a {
@@ -15,7 +17,8 @@
     }
 
 .jumbotron {
-    background-image: url('http://i.imgur.com/WMswrkl.jpg');
+    background-image: url('/static/img/cover.jpg');
+    background-size: cover;
     height: 500px;
     }
 
@@ -27,8 +30,7 @@
 .jumbotron h1 {
     color: #fff;
     font-size: 48px;
-    font-family: 'Shift', 'Open Sans', sans-serif;
-    font-weight: bold;
+    font-family: 'Fredoka One', 'Open Sans', sans-serif;
     }
 
 .jumbotron p {

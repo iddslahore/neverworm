@@ -2,15 +2,16 @@
 {% block title %}Milk-e-Way | Dashboard{% endblock %}
 {% block content %}
     <h2>Dashboard</h2>
+    <a class="btn btn-md btn-primary btn-block" href="{% url 'wishlist_create' %}">Create wishlist</a>
     <ul>
         {% for wishlist in object_list %}
-            <li>
-              {{ wishlist }} ({{ wishlist.progress|multiply 10 }}&#37;)
+            <li id="{{wishlist.id}}">
+              {{ wishlist }} ({{ wishlist.amount }}/{{wishlist.goal}})
               {% if wishlist.is_success %}
               <small>SUCCESS</small>
               {% elif wishlist.is_expired %}
               <small>EXPIRED</small>
-              {% elif wishlist.is_active %}
+              {% elif wishlist.is_published %}
               <a href="{% url 'wishlist_detail' wishlist.id %}">Place order!</a>
               {% endif %}
             </li>

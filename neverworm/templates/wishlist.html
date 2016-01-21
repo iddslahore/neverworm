@@ -4,10 +4,10 @@
 <div class="form">
   <fieldset>
     <legend>New wishlist in {{wishlist.cluster.name}} area!</legend>
-    <p>Hey {{worker.first_name}}! There is a new wishlist for {{wishlist.product}}. Let us know how many units you need and we will do our best to close a group deal by {{ wishlist.target_date|date }}. So far <strong>{{wishlist.amount}}/{{wishlist.goal}}</strong> units have been purchased.</p>
+    <p>Hey {{worker.first_name}}! There is a new wishlist for {{wishlist.product}}. Let us know how many units you and the contacts in your area need and we will let the supplier know. So far <strong>{{wishlist.amount}}/{{wishlist.goal}}</strong> units have been purchased.</p>
     <form class="form-control" action="{% url 'place_wish' wishlist.id %}" method="post">
       {% csrf_token %}
-      <input type="number" name="quantity" id="{{ wishlist.id }}" min="3" max="50" placeholder="Please enter desired quantity here"/>
+      <input type="number" name="quantity" id="{{ wishlist.id }}" min="3" max="50" placeholder="Units"/>
       <input type="submit" value="Order"/>
     </form>
   </fieldset>

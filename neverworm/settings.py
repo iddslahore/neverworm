@@ -39,7 +39,6 @@ INSTALLED_APPS = [
 #    'twitter_bootstrap',
 #    'pipeline',
     'users',
-    'tracking',
     'orders',
 ]
 

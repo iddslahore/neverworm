@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 from django.contrib.auth.views import login, logout
 from django.contrib.auth.decorators import login_required, permission_required
 
-from orders.views import wishlist_detail, place_wish, Dashboard
+from orders.views import *
 from users.views import index
 
 
@@ -31,6 +31,7 @@ urlpatterns = [
     url(r'^logout/$', logout, kwargs={'next_page': '/'}, name='logout'),
     url(r'^admin/', admin.site.urls, name='admin'),
     url(r'^dashboard/$', login_required(Dashboard.as_view()), name='dashboard'),
+    url(r'^wishlist_create$', wishlist_create, name='wishlist_create'),
     url(r'^wishlist/(?P<pk>[0-9]+)/$', wishlist_detail, name='wishlist_detail'),
     url(r'^wishlist/(?P<pk>[0-9]+)/place_wish/$', place_wish, name='place_wish'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

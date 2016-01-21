@@ -30,6 +30,7 @@ logger = logging.getLogger(__name__)
 # Create your models here.
 
 class Cluster(models.Model):
+    # Assumption: one supplier per cluster for now
     supplier = models.ForeignKey('Supplier', related_name='cluster', null=True, blank=True)
     name = models.CharField(_("name"), max_length = 50, blank=False)
 
@@ -71,6 +72,8 @@ class Person(models.Model):
     longitude = models.CharField(_("longitude"), max_length=128, blank=True)
     phone_number = models.CharField(_("phone number"), validators=[phone_regex], max_length=16, blank=True)
     gender = models.CharField(_("gender"), max_length=1, choices=GENDER_CHOICES, default='U')
+    email = models.EmailField(_("e-mail"), blank=True, null=True)
+
 
     class Meta:
         abstract = True
@@ -88,14 +91,16 @@ class Person(models.Model):
             '.') if self.first_name and self.last_name else self.user.username
 
 
-class Farmer(Person):
-    animal_count = models.IntegerField(_("animal count"))
-
 
 class Worker(Person):
     village = models.ForeignKey(Village, null=False, blank=False, related_name='workers')
     training_completion = models.DateField(_("training completion"))
+    head = models.BooleanField(_("head of cluster"), default=False)
     stock = models.IntegerField(_("stock"), default=0, null=False)
+
+    @property
+    def contacts(self):
+        return Worker.objects.filter(village__cluster=self.village.cluster).exclude(id=self.id)
 
 
 class Supplier(Person):

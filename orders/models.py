@@ -37,12 +37,22 @@ class Product(models.Model):
     description = models.CharField(_("description"), default = "Nilzan Plus 1000 ml", max_length=20, null=False, blank=False)
     manufacturer = models.CharField(_("manufacturer"), default = "ICI", max_length=20, null=False, blank=False)
 
+    def __str__(self):
+        return "{0} ({1})".format(self.description, self.manufacturer)
+
 
 class ProductOffer(models.Model):
-    product = models.ForeignKey(Product)
-    supplier = models.ForeignKey(Supplier)
+    product = models.ForeignKey(Product, related_name="product_offers")
+    supplier = models.ForeignKey(Supplier, related_name="product_offers")
     min_order = models.IntegerField(_("minimum order"), null=False, blank=False, default=0)
     unit_price = models.DecimalField(_("unit price"), decimal_places=2, max_digits=10, null=False, blank=False, default=0)
+
+    def __str__(self):
+        return "{0} at {1}".format(self.product.description, self.supplier.first_name)
+
+    @property
+    def name(self):
+        return self.product.name
 
 
 class Wishlist(models.Model):
@@ -55,14 +65,24 @@ class Wishlist(models.Model):
         ('C', _('CANCELLED')),
     )
 
-    owner = models.ForeignKey(Worker)
-    product = models.ForeignKey(Product)
-    cluster = models.ForeignKey(Cluster)
-    supplier = models.ForeignKey(Supplier)
+    owner = models.ForeignKey(Worker, related_name="wishlists")
+    cluster = models.ForeignKey(Cluster, related_name="wishlists")
+    product_offer = models.ForeignKey(ProductOffer, null=True)
     submission_date = models.DateTimeField(_("submission date"), auto_now_add=True, null=False)
-    shipping_date = models.DateTimeField(_("shipping date"), null=False, blank=False)
+    shipping_date = models.DateTimeField(_("shipping date"), default=default_target_date, null=False, blank=False)
     amount = models.IntegerField(_("amount"), default=0, null=False, blank=False)
     status = models.CharField(_("status"), max_length=1, default='N', choices=STATUS_CHOICES)
+
+    class Meta:
+        ordering=['-submission_date',]
+
+    @property
+    def supplier(self):
+        return Supplier.objects.all().first()#self.product_offer.supplier
+
+    @property
+    def product(self):
+        return self.product_offer.product
 
     def __str__(self):
         return _("{goal} units of {product} in {cluster}").format(goal=self.goal,
@@ -91,7 +111,7 @@ class Wishlist(models.Model):
 
     @property
     def goal(self):
-        return self.supplier.minimum_order
+        return self.product_offer.min_order
 
     @property
     def progress(self):
@@ -102,11 +122,15 @@ class Wishlist(models.Model):
 
     @property
     def is_expired(self):
-        return timezone.now() > self.target_date
+        return timezone.now() > self.shipping_date
 
     @property
     def is_success(self):
         return self.amount >= self.goal
+
+    @property
+    def is_active(self):
+        return self.is_published
 
     def is_participant(self, worker):
         return self.items.filter(worker=worker).count()
