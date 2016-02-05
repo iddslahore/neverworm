@@ -1,0 +1,323 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-02-05 18:38-0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: neverworm/templates/base.html:11
+msgid "Welcome to Milk-e-Way!"
+msgstr "Seja bem-vindo ao Milk-e-Way!"
+
+#: neverworm/templates/base.html:18
+msgid "Home"
+msgstr "Início"
+
+#: neverworm/templates/base.html:20 neverworm/templates/dashboard.html.py:3
+#: neverworm/templates/dashboard.html:5
+msgid "Dashboard"
+msgstr "Meu Painel"
+
+#: neverworm/templates/base.html:25 neverworm/templates/login.html.py:3
+msgid "Login"
+msgstr "Entrar"
+
+#: neverworm/templates/base.html:27
+#, python-format
+msgid "Hello, %(username)s!"
+msgstr "Olá, %(username)s!"
+
+#: neverworm/templates/base.html:28
+msgid "Logout"
+msgstr "Sair"
+
+#: neverworm/templates/dashboard.html:6
+#: neverworm/templates/wishlist_create.html:3
+#: neverworm/templates/wishlist_create.html:14
+msgid "Create wishlist"
+msgstr "Criar lista de compra"
+
+#: neverworm/templates/dashboard.html:12
+msgid "SUCCESS"
+msgstr "SUCESSO"
+
+#: neverworm/templates/dashboard.html:16
+msgid "Place order!"
+msgstr "Colocar pedido!"
+
+#: neverworm/templates/index.html:3
+msgid "Welcome"
+msgstr "Bem-vindo"
+
+#: neverworm/templates/index.html:8
+msgid "Welcome to milk-e-way"
+msgstr "Bem-vindo ao Milk-e-Way"
+
+#: neverworm/templates/index.html:11
+#, python-format
+msgid ""
+"\n"
+"Conectando %(wc)s trabalhadores rurais em %(vc)s "
+"vila!\n"
+"      "
+msgid_plural ""
+"\n"
+"Connectando %(wc)s trabalhadores rurais em %(vc)s "
+"vila!\n"
+"      "
+msgstr[0] ""
+msgstr[1] ""
+
+#: neverworm/templates/index.html:20
+msgid "Learn more"
+msgstr "Saiba mais"
+
+#: neverworm/templates/login.html:15
+msgid "Please sign in"
+msgstr "Por favor entre com suas credenciais"
+
+#: neverworm/templates/login.html:16
+msgid "Username"
+msgstr "Usuário"
+
+#: neverworm/templates/login.html:17
+msgid "Password"
+msgstr "Senha"
+
+#: neverworm/templates/login.html:26
+msgid "Remember me"
+msgstr "Lembre-se de mim"
+
+#: neverworm/templates/login.html:30
+msgid "Sign in"
+msgstr "Entrar"
+
+#: neverworm/templates/wishlist.html:3
+msgid "Wishlist"
+msgstr "Lista de compra"
+
+#: neverworm/templates/wishlist.html:8
+#, python-format
+msgid ""
+"\n"
+"      New wishlist in %(cluster)s area!\n"
+"      "
+msgstr ""
+"\n"
+"      Nova lista de compra na região de %(cluster)s!\n"
+"      "
+
+#: neverworm/templates/wishlist.html:20
+msgid "Units"
+msgstr "Unidades"
+
+#: neverworm/templates/wishlist.html:21
+msgid "Order"
+msgstr "Pedir"
+
+#: neverworm/templates/wishlist_create.html:7
+msgid ""
+"Please <b>choose a product from the list</b> to create a wishlist in your "
+"area"
+msgstr ""
+"Por favor <b>escolha um produto</b> para criar uma lista de compras na sua "
+"área"
+
+#: orders/admin.py:34
+msgid "items"
+msgstr "itens"
+
+#: orders/admin.py:45
+msgid "product offers"
+msgstr "ofertas de produtos"
+
+#: orders/models.py:37
+msgid "description"
+msgstr "descrição"
+
+#: orders/models.py:38
+msgid "manufacturer"
+msgstr "fabricante"
+
+#: orders/models.py:47
+msgid "minimum order"
+msgstr "pedido mínimo"
+
+#: orders/models.py:48
+msgid "unit price"
+msgstr "preço unitário"
+
+#: orders/models.py:61
+msgid "NEW"
+msgstr ""
+
+#: orders/models.py:62
+msgid "PUBLISHED"
+msgstr ""
+
+#: orders/models.py:63
+msgid "QUOTED"
+msgstr ""
+
+#: orders/models.py:64
+msgid "SHIPPED"
+msgstr ""
+
+#: orders/models.py:65
+msgid "CANCELLED"
+msgstr ""
+
+#: orders/models.py:71
+msgid "submission date"
+msgstr "data de submissão"
+
+#: orders/models.py:72
+msgid "shipping date"
+msgstr "data de envio"
+
+#: orders/models.py:73
+msgid "amount"
+msgstr "total"
+
+#: orders/models.py:74
+msgid "status"
+msgstr "status"
+
+#: orders/models.py:88
+#, python-brace-format
+msgid "{goal} units of {product} in {cluster}"
+msgstr "{goal} unidades de {product} em {cluster}"
+
+#: orders/models.py:145
+msgid "quantity"
+msgstr "quantidade"
+
+#: orders/models.py:148
+#, python-brace-format
+msgid "{quantity} units for {name}"
+msgstr "{quantity} unidades para {name}"
+
+#: orders/process.py:53
+#, python-brace-format
+msgid ""
+"Hey, {first_name}, there is a new wishlist for {product} in {cluster}. If "
+"you are interested please contact {owner_name} from {owner_village} at "
+"{owner_phone_number}"
+msgstr ""
+"Olá, {first_name}, há uma nova lista de compra de {product} em {cluster}. Se "
+"você está iteressado, por favor contate {owner_name} de {owner_village} no número "
+"{owner_phone_number}"
+
+
+#: orders/process.py:64
+#, python-brace-format
+msgid "[SMS or push to {number}] {message}"
+msgstr ""
+
+#: orders/views.py:61
+msgid "Error. Invalid product!"
+msgstr ""
+
+#: orders/views.py:72
+msgid "You have successfully created your wishlist! Thank you!"
+msgstr "Sua lista de compra foi criada com sucesso! Obrigado!"
+
+#: orders/views.py:100
+msgid "Wishlist not active!"
+msgstr "Lista de compra inativa!"
+
+#: orders/views.py:102
+msgid "You are not allowed to join a wishlist that is not in your area!"
+msgstr "Você não tem permissão para entrar em uma lista de compra que não está na sua área!"
+
+#: orders/views.py:104
+msgid "You have already joined this wishlist!"
+msgstr "Você já está nesta lista de compra!"
+
+#: orders/views.py:110
+msgid ""
+"You have successfully placed your order! We will let you know when the deal "
+"is closed. Thank you!"
+msgstr "Seu pedido foi colocado com sucesso! Nós avisaremos caso a compra"
+"seja confirmada. Obrigado!"
+
+#: users/models.py:35 users/models.py:42
+msgid "name"
+msgstr "nome"
+
+#: users/models.py:58
+msgid "Male"
+msgstr "Masculino"
+
+#: users/models.py:59
+msgid "Female"
+msgstr "Feminino"
+
+#: users/models.py:60
+msgid "Undefined"
+msgstr "Indefinido"
+
+#: users/models.py:65
+msgid ""
+"Phone number must be entered in the format:"
+"'+999999999'. Up to 15 digits allowed."
+msgstr ""
+"O número de telefone deve ser inserido no formato:"
+"'+999999999' Até 15 dígitos são permitidos."
+
+#: users/models.py:69
+msgid "first name"
+msgstr "nome"
+
+#: users/models.py:70
+msgid "last name"
+msgstr "sobrenome"
+
+#: users/models.py:71
+msgid "latitude"
+msgstr "latitude"
+
+#: users/models.py:72
+msgid "longitude"
+msgstr "longitude"
+
+#: users/models.py:73
+msgid "phone number"
+msgstr "número de telefone"
+
+#: users/models.py:74
+msgid "gender"
+msgstr "gênero"
+
+#: users/models.py:75
+msgid "e-mail"
+msgstr "e-mail"
+
+#: users/models.py:97
+msgid "training completion"
+msgstr "conclusão do treinamento"
+
+#: users/models.py:98
+msgid "head of cluster"
+msgstr "cabeça do cluster"
+
+#: users/models.py:99
+msgid "stock"
+msgstr "estoque"
+
+#: users/models.py:107
+msgid "address"
+msgstr "endereço"
