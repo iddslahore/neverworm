@@ -1,30 +1,31 @@
 <!doctype html>
 <html>
   {% load staticfiles %}
+  {% load i18n %}
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css"/>
     <link href="{% static 'css/neverworm.css' %}" rel="stylesheet" type="text/css"/>
-    <title>{% block title %}Welcome to Milk-E-Way!{% endblock %}</title>
+    <title>{% block title %}{% trans "Welcome to Milk-e-Way!" %}{% endblock %}</title>
   </head>
   <body>
     <div class="container">
       {% block navbar %}
       <div id="navbar" class="nav">
 	<ul class="pull-left">
-	  <li><a href="/">Home</a></li>
+	  <li><a href="/">{% trans "Home" %}</a></li>
           {% if user.is_authenticated %}
-	  <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+	  <li><a href="{% url 'dashboard' %}">{% trans "Dashboard" %}</a></li>
           {% endif %}
 	</ul>
 	<ul class="pull-right">
           {% if not user.is_authenticated %}
-	  <li><a href="{% url 'login' %}">Login</a></li>
+	  <li><a href="{% url 'login' %}">{% trans "Login" %}</a></li>
           {% else %}
-	  <li>Hello, {{user.username}}!</li>
-	  <li><a href="/logout">Logout</a></li>
+	  <li>{% blocktrans with username=user.username %}Hello, {{username}}!{% endblocktrans %}</li>
+	  <li><a href="/logout">{% trans "Logout" %}</a></li>
           {% endif %}
 	</ul>
       </div>

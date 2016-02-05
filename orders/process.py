@@ -61,7 +61,7 @@ def wishlist_alert_new(wishlist, worker):
         send_sms(worker.phone_number, message)
 
 def send_sms(number, message):
-    logger.debug(_('[SMS or push to {0}] {1}').format(number, message))
+    logger.debug(_('[SMS or push to {number}] {message}').format(number=number, message=message))
     username = 'itu'
     password = 'iTu$m$aLL'
     params = { 'message'  : message,

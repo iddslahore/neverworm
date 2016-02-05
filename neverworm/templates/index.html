@@ -1,16 +1,23 @@
 {% extends "base.html" %}
-{% block title %}Milk-e-Way | Welcome{% endblock %}
+{% load i18n %}
+{% block title %}Milk-e-Way | {% trans "Welcome" %}{% endblock %}
 {% block content %}
 <div id="index-content">
   <div class="jumbotron">
     <div class="container">
-      <h1>Welcome to milk-e-way</h1>
+      <h1>{% trans "Welcome to milk-e-way" %}</h1>
       {% if worker_count %}
-      <p>Connecting {{worker_count}} Women Livestock Extension Workers in {{village_count}} villages!</p>
+      <p>
+      {% blocktrans with wc=worker_count count vc=village_count %}
+Connecting {{wc}} Women Livestock Extension Workers in {{vc}} village!
+      {% plural %}
+Connecting {{wc}} Women Livestock Extension Workers in {{vc}} villages!
+      {% endblocktrans %}
+      </p>
       {% endif %}
       <p>
         <button type="submit" class="btn btn-primary">
-          Learn more
+          {% trans "Learn more" %}
         </button>
       </p>
     </div>

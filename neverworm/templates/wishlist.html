@@ -1,14 +1,26 @@
 {% extends "base.html" %}
-{% block title %}Milk-e-Way | Wishlist{% endblock %}
+{% load i18n %}
+{% block title %}Milk-e-Way | {% trans "Wishlist" %}{% endblock %}
 {% block content %}
 <div class="form">
   <fieldset>
-    <legend>New wishlist in {{wishlist.cluster.name}} area!</legend>
-    <p>Hey {{worker.first_name}}! There is a new wishlist for {{wishlist.product}}. Let us know how many units you and the contacts in your area need and we will let the supplier know. So far <strong>{{wishlist.amount}}/{{wishlist.goal}}</strong> units have been purchased.</p>
+    <legend>
+      {% blocktrans with cluster=wishlist.cluster.name %}
+      New wishlist in {{cluster}} area!
+      {% endblocktrans %}
+    </legend>
+    <p>
+      {% blocktrans with name=worker.first_name|title
+      product=wishlist.product|title amount=wishlist.amount goal=wishlist.goal %}
+      Hey {{name}}! There is a new wishlist for {{product}}. Let us know how many units you and the contacts in your area need and we will let the supplier know. So far <strong>{{amount}}/{{goal}}</strong> units have been purchased.
+      {% endblocktrans %}
+    </p>
     <form class="form-control" action="{% url 'place_wish' wishlist.id %}" method="post">
       {% csrf_token %}
-      <input type="number" name="quantity" id="{{ wishlist.id }}" min="3" max="50" placeholder="Units"/>
-      <input type="submit" value="Order"/>
+      {% trans "Units" as t_units %}
+      {% trans "Order" as t_order %}
+      <input type="number" name="quantity" id="{{ wishlist.id }}" min="3" max="50" placeholder="{{t_units}}"/>
+      <input type="submit" value="{{t_order}}"/>
     </form>
   </fieldset>
 </div>

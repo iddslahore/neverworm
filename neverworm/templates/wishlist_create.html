@@ -1,17 +1,18 @@
 {% extends "base.html" %}
-{% block title %}Milk-E-Way | Create wishlist{% endblock %}
+{% load i18n %}
+{% block title %}Milk-e-Way | {% trans "Create wishlist" %}{% endblock %}
 {% block content %}
 <div class="row">
   <div class="col-md-4">
-    <h2 class="form-signin-heading">Please <b>choose a product from the list</b> to create a wishlist in your area</h2>
-
+    <h2 class="form-signin-heading">{% trans "Please <b>choose a product from the list</b> to create a wishlist in your area" %}</h2>
     <form action="{% url 'wishlist_create' %}" method="post">
       {% csrf_token %}
       {% for p in product_offers %}
       <input type="radio" name="p" id="p{{ forloop.counter }}" value="{{ p.id }}" />
       <label for="p{{ forloop.counter }}">{{ p.product.description }}</label><br />
       {% endfor %}
-      <input type="submit" value="Create wishlist" />
+      {% trans "Create wishlist" as t_create %}
+      <input type="submit" value="{{t_create}}" />
     </form>
   </div>
 </div>

@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-{% block title %}Milk-E-Way | Login{% endblock %}
+{% load i18n %}
+{% block title %}Milk-e-Way | {% trans "Login" %}{% endblock %}
 {% block content %}
 <div class="row">
 <div class="col-md-4">
@@ -11,18 +12,23 @@
             {{ field.errors }}
         {% endif %}
     {% endfor %}
-      <h2 class="form-signin-heading">Please sign in</h2>
-        <label for="id_username" class="sr-only">Username</label>
-        <input name="username" type="text" id="id_username" class="form-control" placeholder="Username" required autofocus/>
-        <label for="id_password" class="sr-only">Password</label>
-        <input name="password" type="password" id="id_password" class="form-control" placeholder="Password" required/>
+      <h2 class="form-signin-heading">{% trans "Please sign in" %}</h2>
+      {% trans "Username" as t_username %}
+      {% trans "Password" as t_password %}
+        <label for="id_username" class="sr-only">{{t_username}}</label>
+        <input name="username" type="text" id="id_username" class="form-control"
+               placeholder="{{t_username}}" required autofocus/>
+        <label for="id_password" class="sr-only">{{t_password}}</label>
+        <input name="password" type="password" id="id_password" class="form-control"
+               placeholder="{{t_password}}" required/>
         <div class="checkbox">
           <label>
-            <input type="checkbox" value="remember-me"> Remember me
+            <input type="checkbox" value="remember-me">{% trans "Remember me" %}
           </label>
         </div>
         <input type="hidden" name="next" value="{{ next }}" />
-        <input class="btn btn-md btn-primary btn-block" type="submit" value="Sign in"/>
+        {% trans "Sign in" as t_signin %}
+        <input class="btn btn-md btn-primary btn-block" type="submit" value="{{t_signin}}"/>
 </form>
 </div>
 </div>
