@@ -117,6 +117,7 @@ TEMPLATES = [
                 'django.core.context_processors.static',
                 'django.core.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
+                'neverworm.context_processors.default_app_context',
             ],
         },
     },
@@ -239,3 +240,5 @@ STATICFILES_DIRS = (
 
 #App stuff
 DEADLINE_DELTA_DAYS = 6
+BRAND_LABEL = "milk-e-way"
+ADMIN_MEDIA_PREFIX = 'admin'

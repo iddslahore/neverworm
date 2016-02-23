@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% block title %}Milk-e-Way | {% trans "Welcome" %}{% endblock %}
+{% block title %}{{block.super}} | {% trans "Welcome" %}{% endblock %}
 {% block content %}
 <div id="index-content">
   <div class="jumbotron">
     <div class="container">
-      <h1>{% trans "Welcome to milk-e-way" %}</h1>
+      <h1>{% blocktrans with brand=BRAND_LABEL %}Welcome to {{brand}}{% endblocktrans %}</h1>
       {% if worker_count %}
       <p>
       {% blocktrans with wc=worker_count count vc=village_count %}

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% block title %}Milk-e-Way | {% trans "Dashboard" %}{% endblock %}
+{% block title %}{{block.super}} | {% trans "Dashboard" %}{% endblock %}
 {% block content %}
     <h2>{% trans "Dashboard" %}</h2>
     <a class="btn btn-md btn-primary btn-block" href="{% url 'wishlist_create' %}">{% trans "Create wishlist" %}</a>

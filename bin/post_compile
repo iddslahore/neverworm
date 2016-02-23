@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+
+# Based on https://wearespindle.com/articles/how-to-heroku-automatic-translations/
+# and https://devcenter.heroku.com/articles/using-multiple-buildpacks-for-an-app
+
  set -eo pipefail
  # The post_compile hook is run by heroku-buildpack-python
  indent() {

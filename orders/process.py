@@ -21,6 +21,7 @@
 from django.utils.translation import ugettext_lazy as _
 from django.db.models.signals import post_init
 from django.dispatch import receiver
+from django.conf import settings
 
 from users.models import Cluster, Supplier, Worker
 from orders.models import Wishlist
@@ -50,9 +51,10 @@ def wishlist_alert(wishlist):
 
 def wishlist_alert_new(wishlist, worker):
     if worker.phone_number:
-        message = _('Hey, {first_name}, there is a new wishlist for {product} in {cluster}. '
+        message = _('{brand}: Hey, {first_name}, there is a new wishlist for {product} in {cluster}. '
                     'If you are interested please contact {owner_name} from {owner_village} '
-                    'at {owner_phone_number}').format(first_name=worker.first_name,
+                    'at {owner_phone_number}').format(brand=settings.BRAND_LABEL,
+                                                      first_name=worker.first_name,
                                                       product=wishlist.product.description,
                                                       cluster=wishlist.owner.village.cluster,
                                                       owner_name=wishlist.owner.public_name,
