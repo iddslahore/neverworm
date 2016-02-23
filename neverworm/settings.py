@@ -30,6 +30,12 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+
+    #3rd party
+    'djcelery',
+    'kombu.transport.django',
+
+    #django
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -242,3 +248,15 @@ STATICFILES_DIRS = (
 DEADLINE_DELTA_DAYS = 6
 BRAND_LABEL = "milk-e-way"
 ADMIN_MEDIA_PREFIX = 'admin'
+
+BROKER_URL = 'django://'
+
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_ACCEPT_CONTENT=['json']
+CELERY_TIMEZONE = 'UTC'
+CELERY_ENABLE_UTC = True
+CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
+CELERY_ANNOTATIONS = {
+    'orders.tasks.send_sms': {'rate_limit': '1/m'} #LOW LIMIT FOR TESTING
+}

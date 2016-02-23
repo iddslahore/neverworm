@@ -7,3 +7,5 @@ django-twitter-bootstrap
 django-bootstrap3
 django-pipeline
 requests
+celery
+django-celery

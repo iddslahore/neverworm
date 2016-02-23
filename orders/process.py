@@ -25,6 +25,7 @@ from django.conf import settings
 
 from users.models import Cluster, Supplier, Worker
 from orders.models import Wishlist
+from orders.tasks import send_sms
 
 import requests
 import logging
@@ -46,8 +47,6 @@ def wishlist_alert(wishlist):
         logger.debug("Alerting {}".format(w))
         wishlist_alert_new(wishlist, w)
 
-# @receiver(post_init, sender=Wishlist)
-# def wishlist_create_handler(sender,kwargs):
 
 def wishlist_alert_new(wishlist, worker):
     if worker.phone_number:
@@ -60,17 +59,5 @@ def wishlist_alert_new(wishlist, worker):
                                                       owner_name=wishlist.owner.public_name,
                                                       owner_phone_number=wishlist.owner.phone_number,
                                                       owner_village=wishlist.owner.village.name)
-        send_sms(worker.phone_number, message)
-
-def send_sms(number, message):
-    logger.debug(_('[SMS or push to {number}] {message}').format(number=number, message=message))
-    username = 'itu'
-    password = 'iTu$m$aLL'
-    params = { 'message'  : message,
-               'username' : username,
-               'password' : password,
-               'number'   : number,
-               }
-    REQUEST_URL = "https://send.smsall.pk/tpapi_gateway.py/outgoing"
-    r = requests.get(REQUEST_URL, params=params, verify=False)
-    r.raise_for_status()
+        send_sms.delay(worker.phone_number, message)
+        logger.debug("SMS to {} queued".format(worker))
