@@ -3,9 +3,6 @@ dj-database-url
 dj-static
 gunicorn
 psycopg2
-django-twitter-bootstrap
-django-bootstrap3
-django-pipeline
 requests
 celery
 django-celery
