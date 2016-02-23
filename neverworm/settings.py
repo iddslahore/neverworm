@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
 
     #3rd party
+    'django_admin_bootstrapped',
     'djcelery',
     'kombu.transport.django',
 

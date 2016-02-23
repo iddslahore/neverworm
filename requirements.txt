@@ -6,3 +6,4 @@ psycopg2
 requests
 celery
 django-celery
+django-admin-bootstrapped
